@@ -1,0 +1,98 @@
+apiVersion: content.astrona.io/v1alpha1
+kind: TrainingPath
+metadata:
+  # The unique identifier for this path.
+  id: {{ .path_id }}
+  # A URL-safe string used for routing and linking (e.g., "getting-started-with-astrona").
+  slug: {{ .slug }}
+  title: "{{ .title }}"
+  description: "{{ .description }}"
+  version: "{{ .version }}"
+  language: "{{ .language }}"
+  authors:
+    - "{{ .author_name }}"
+  tags:
+    - "beginner"
+    - "core-concepts"
+  license: "{{ .license }}"
+
+spec:
+  # Who should take this path? (e.g., "Junior System Administrators", "Network Engineers")
+  audience: "Intended audience description"
+  
+  # Recommended difficulty: Beginner, Intermediate, Advanced, or Expert.
+  difficulty: "Beginner"
+  
+  # Approximate time to complete the entire path (e.g., "4h", "2d", "3w").
+  estimatedDuration: "4h"
+
+  # What the learner must know or complete before starting this path.
+  prerequisites:
+    - "Basic understanding of Linux command-line operations."
+    - "Completion of ATP001 (Recommended)."
+
+  # High-level, measurable goals the learner will achieve by completing this path.
+  # Use action verbs (e.g., "Deploy", "Analyze", "Configure").
+  learningOutcomes:
+    - "Identify core components of the system."
+    - "Configure a basic environment from scratch."
+
+  # Stages define the structured progression of the path.
+  # Learners must complete stages in this order.
+  stages:
+    - id: "stage-1"
+      title: "Introduction and Fundamentals"
+      description: "Establish baseline knowledge of core concepts."
+      # Stage-specific outcomes that build toward the overall learningOutcomes.
+      learningOutcomes:
+        - "Define terminology used in the ecosystem."
+      
+      # Content references the Astrona Training Specifications (ATS) that hold the actual educational material.
+      # NEVER put reading material, labs, or exercises directly in this file.
+      content:
+        - ref: ATS010
+          # We use semantic version constraints to ensure upstream updates don't break this path unexpectedly.
+          version: ">=1.0.0 <2.0.0"
+          # Is this module strictly required to progress, or just supplementary?
+          required: true
+          # Optional: A teacher-facing note explaining why this ATS is placed here.
+          rationale: "Provides the foundational reading material for Stage 1."
+          
+        - ref: ATS012
+          version: "^1.2.0"
+          required: false
+          rationale: "Optional deep-dive into advanced configuration."
+          # Optional: Only include specific activities from the ATS rather than the entire module.
+          # If omitted, the entire ATS module is included.
+          includeActivities:
+            - "exercise-config-basics"
+
+    - id: "stage-2"
+      title: "Hands-on Practice"
+      description: "Apply fundamental knowledge in sandboxed environments."
+      learningOutcomes:
+        - "Deploy a working configuration using the CLI."
+      content:
+        - ref: ATS015
+          version: "^2.0.0"
+          required: true
+          rationale: "Primary lab exercise for this path."
+
+  # How Astrona determines if the learner has successfully finished the path.
+  completionRequirements:
+    # Must the learner complete all content marked 'required: true'?
+    requireAllMandatoryContent: true
+    # Is a passing score on the final assessment required?
+    requireFinalAssessmentPass: true
+
+  # The culminating assessment (exam, capstone lab, etc.) for the entire path.
+  # This must reference an activity owned by an ATS resource.
+  finalAssessment:
+    ref: ATS020
+    version: "^1.0.0"
+    # The specific assessment activity within ATS020 to use as the final exam.
+    activityId: "capstone-assessment"
+
+  # Where should the learner go after completing this path?
+  recommendedNextPaths:
+    - ATPyyy

@@ -1,0 +1,9 @@
+# Default values for template variables injected by 'astrona content init path'
+path_id: "ATPxxx"
+slug: "path-slug"
+title: "Path Title"
+description: "A short, engaging description of what the learner will achieve."
+version: "0.1.0"
+language: "en"
+author_name: "Author Name"
+license: "Apache-2.0"
