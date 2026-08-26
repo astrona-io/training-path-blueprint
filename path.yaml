@@ -56,20 +56,13 @@ spec:
           repository: "git@github.com:astrona-io/ATS010.git"
           # Directory path within the repository where the specification files reside.
           path: "."
-          # We use semantic version constraints to ensure upstream updates don't break this path unexpectedly.
-          version: ">=1.0.0 <2.0.0"
-          # Optional: A teacher-facing note explaining why this ATS is placed here.
-          rationale: "Provides the foundational reading material for Stage 1."
+          # The exact, fixed version of the specification to lock down builds deterministically.
+          version: "1.0.0"
           
         - ref: ATS012
           repository: "git@github.com:astrona-io/ATS012.git"
           path: "modules/advanced"
-          version: "^1.2.0"
-          rationale: "Deep-dive into advanced configuration details."
-          # Optional: Only include specific activities from the ATS rather than the entire module.
-          # If omitted, the entire ATS module is included.
-          includeActivities:
-            - "exercise-config-basics"
+          version: "1.2.0"
 
     - id: "stage-2"
       title: "Hands-on Practice"
@@ -80,25 +73,7 @@ spec:
         - ref: ATS015
           repository: "git@github.com:astrona-io/ATS015.git"
           path: "labs/lab-1"
-          version: "^2.0.0"
-          rationale: "Primary lab exercise for this path."
-
-  # How Astrona determines if the learner has successfully finished the path.
-  completionRequirements:
-    # Must the learner complete all referenced stage content in this path?
-    requireAllStageContent: true
-    # Is a passing score on the final assessment required?
-    requireFinalAssessmentPass: true
-
-  # The culminating assessment (exam, capstone lab, etc.) for the entire path.
-  # This must reference an activity owned by an ATS resource.
-  finalAssessment:
-    ref: ATS020
-    repository: "git@github.com:astrona-io/ATS020.git"
-    path: "capstones/main"
-    version: "^1.0.0"
-    # The specific assessment activity within ATS020 to use as the final exam.
-    activityId: "capstone-assessment"
+          version: "2.0.0"
 
   # Where should the learner go after completing this path?
   recommendedNextPaths:

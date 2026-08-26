@@ -2,7 +2,7 @@
 
 This repository contains the blueprint for an **Astrona Training Path (ATP)**.
 
-An ATP arranges existing educational units (ATS resources) into a structured learning path. It defines target audiences, milestones, progression logic, and final assessments.
+An ATP arranges existing educational units (ATS resources) into a structured learning path. It defines target audiences, milestones, and progression logic.
 
 This repository does **not** host raw educational content. Reading materials, quizzes, lab environments, and code solutions belong entirely within **Astrona Training Specifications (ATS)**.
 
@@ -21,9 +21,9 @@ Organize the path chronologically using stages. Stages break down a long path in
 ### 3. Reference ATS Resources
 Inside each stage, link to the relevant ATS identifiers (like `ATS010`) and provide the corresponding Git repository SSH/HTTPS address. All declared resources are required to be reachable and valid for the CLI package builder to compile successfully.
 
-Because specifications evolve, define compatible semantic versions:
-* `^1.0.0` — compatible with 1.x.x, but not 2.0.0.
-* `>=1.2.0 <2.0.0` — any version from 1.2.0 up to 2.0.0 (exclusive).
+To lock down path builds and ensure that compiler builds remain fully reproducible and deterministic, use exact, fixed semantic versions:
+* `"1.0.0"`
+* `"2.3.1"`
 
 ---
 
@@ -59,5 +59,4 @@ Verify these requirements before publishing the path:
 - [ ] Overall and Stage outcomes use action-oriented verbs.
 - [ ] All ATS references and version ranges are valid.
 - [ ] Stages follow a logical pedagogical progression.
-- [ ] The final assessment points to a valid ATS activity.
 - [ ] `astrona content validate` runs without errors.
