@@ -2,26 +2,44 @@
 
 This repository contains the blueprint for an **Astrona Training Path (ATP)**.
 
-An ATP arranges existing educational units (ATS resources) into a structured learning path. It defines target audiences, milestones, and progression logic.
+## What is a Training Path?
 
-This repository does **not** host raw educational content. Reading materials, quizzes, lab environments, and code solutions belong entirely within **Astrona Training Specifications (ATS)**.
+An ATP represents a **complete, end-to-end learning course** designed to cover multiple different domains, competencies, and milestones. While individual educational units (like labs, readings, and exercises) are self-contained inside **Astrona Training Specifications (ATS)**, the ATP strings these modules together into a complete, structured curriculum or learning path.
+
+### Exam Preparation Courses (e.g., CNCF or Linux Foundation Certifications)
+When a training path is designed for professional exam preparation—such as **Linux Foundation LFCS** or **CNCF CKA/CKAD**—the path structure directly reflects the certification's official syllabus domains. 
+
+To achieve this, the ATP schema supports two crucial features:
+1. **`examPreparation` Mapping:** Declares whether the course is aligned with an official professional exam, and specifies metadata to connect with the provider:
+   * `enabled` (boolean): Flag to turn on exam mapping.
+   * `title` (string): The full name of the certification.
+   * `officialSyllabusUrl` (string): A direct link to the official exam outline, such as `https://training.linuxfoundation.org/certification/linux-foundation-certified-sysadmin-lfcs/`.
+   * `examId` (string): The standard code/identifier for the exam (e.g., `LFCS` or `CKA`).
+   * `provider` (string): The body issuing the certification (e.g., `The Linux Foundation` or `CNCF`).
+2. **Domain `weight` Percentages:** Every stage in the path can carry a numeric weight. This maps directly to the official certification syllabus weight (e.g., setting a stage weight to `25` representing 25% of the exam coverage).
 
 ---
 
 ## Designing Your Path
 
-### 1. Specify Prerequisites and Outcomes
-Define who the path is for and what they must know beforehand. Write outcomes using active, measurable verbs:
-* **Good:** "Configure a secure firewall ruleset", "Diagnose networking latency".
-* **Avoid:** "Understand firewalls", "Learn about networks".
+### 1. Plan Your Course Domains
+Before writing code, map out the comprehensive path. If you are building a CNCF or other industry exam prep course, gather the official domain percentages. Break the path down into **Stages** corresponding directly to those domains.
 
-### 2. Group into Stages
-Organize the path chronologically using stages. Stages break down a long path into clear milestones, each with its own intermediate outcomes.
+### 2. Configure Stage Weights
+For exam-aligned courses, assign a relative `weight` percentage to each stage in `path.yaml` to specify its importance and guide the learner's focus:
+* **Cluster Architecture & Setup:** 25%
+* **Services & Networking:** 20%
+* **Troubleshooting & Debugging:** 30%
 
-### 3. Reference ATS Resources
-Inside each stage, link to the relevant ATS identifiers (like `ATS010`) and provide the corresponding Git repository SSH/HTTPS address. All declared resources are required to be reachable and valid for the CLI package builder to compile successfully.
+### 3. Specify Prerequisites and Outcomes
+Use active, measurable verbs for stage and global outcomes:
+* **Good:** "Initialize a multi-node cluster using kubeadm", "Isolate broken control plane nodes".
+* **Avoid:** "Learn cluster setup", "Understand how to troubleshoot".
 
-To lock down path builds and ensure that compiler builds remain fully reproducible and deterministic, use exact, fixed semantic versions:
+### 4. Reference ATS Resources
+Inside each stage, link to the relevant spec ID (`ATSxxx`) and its remote Git repository SSH/HTTPS address. All referenced specifications must be reachable and valid for the CLI package builder to compile successfully.
+
+To lock down builds deterministically and ensure that compilations are fully reproducible, use exact, fixed semantic version strings:
 * `"1.0.0"`
 * `"2.3.1"`
 
@@ -45,7 +63,7 @@ astrona content preview
 ## Where Content Lives
 
 Keep a clean boundary between structure and content:
-* **Modify here:** Path organization, stage definitions, prerequisite list, overall outcomes, and metadata in `path.yaml`.
+* **Modify here:** Path organization, stage definitions, exam preparation options, prerequisites, outcomes, and metadata in `path.yaml`.
 * **Modify in ATS:** Reading prose, exercises, lab configs, and grading scripts. If you need new content, run `astrona content init spec ATSxxx` to create a separate spec.
 
 ---
@@ -55,8 +73,9 @@ Keep a clean boundary between structure and content:
 Verify these requirements before publishing the path:
 
 - [ ] Target audience and difficulty level are set.
-- [ ] Prerequisites are explicit.
+- [ ] If aligned to an exam, `examPreparation` block is configured with correct metadata.
+- [ ] Stage `weight` percentages are set and align with the certification blueprint.
+- [ ] Prerequisites and outcomes are explicit.
 - [ ] Overall and Stage outcomes use action-oriented verbs.
-- [ ] All ATS references and version ranges are valid.
-- [ ] Stages follow a logical pedagogical progression.
+- [ ] All ATS references and version ranges point to exact, fixed tags.
 - [ ] `astrona content validate` runs without errors.
