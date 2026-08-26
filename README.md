@@ -39,9 +39,9 @@ Use active, measurable verbs for stage and global outcomes:
 ### 4. Reference ATS Resources
 Inside each stage, link to the relevant spec ID (`ATSxxx`) and its remote Git repository SSH/HTTPS address. All referenced specifications must be reachable and valid for the CLI package builder to compile successfully.
 
-To lock down builds deterministically and ensure that compilations are fully reproducible, use exact, fixed semantic version strings:
-* `"1.0.0"`
-* `"2.3.1"`
+The `version` field represents the git reference (tag, commit, or branch) that the builder will checkout:
+* **Development Phase:** Reference an active development branch (e.g., `"main"` or `"dev"`) to quickly test updates and build continuous integration packages.
+* **Release Phase:** Once development is finalized and you are ready to ship a static, stable release of the path, tag your ATS repositories with version numbers and update the path's references to point to these fixed version tags (e.g., `"1.0.0"` or `"2.3.1"`) to guarantee 100% reproducible and deterministic builds.
 
 ---
 

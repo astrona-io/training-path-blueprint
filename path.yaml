@@ -67,7 +67,7 @@ spec:
           repository: "git@github.com:astrona-io/ATS010.git"
           # Directory path within the repository where the specification files reside.
           path: "."
-          # The exact, fixed version of the specification to lock down builds deterministically.
+          # The exact fixed tag (e.g. "1.0.0") OR branch name (e.g. "main" during development) to clone.
           version: "1.0.0"
 
     - id: "domain-networking"
@@ -80,7 +80,8 @@ spec:
         - ref: ATS012
           repository: "git@github.com:astrona-io/ATS012.git"
           path: "modules/networking"
-          version: "1.2.0"
+          # Demonstrates referencing an active branch name during the development phase.
+          version: "main"
 
     - id: "domain-troubleshooting"
       title: "Troubleshooting & Debugging"
