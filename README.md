@@ -19,12 +19,11 @@ Define who the path is for and what they must know beforehand. Write outcomes us
 Organize the path chronologically using stages. Stages break down a long path into clear milestones, each with its own intermediate outcomes.
 
 ### 3. Reference ATS Resources
-Inside each stage, link to the relevant ATS identifiers (like `ATS010`). Because specifications evolve, define compatible semantic versions:
+Inside each stage, link to the relevant ATS identifiers (like `ATS010`) and provide the corresponding Git repository SSH/HTTPS address. All declared resources are required to be reachable and valid for the CLI package builder to compile successfully.
+
+Because specifications evolve, define compatible semantic versions:
 * `^1.0.0` — compatible with 1.x.x, but not 2.0.0.
 * `>=1.2.0 <2.0.0` — any version from 1.2.0 up to 2.0.0 (exclusive).
-
-### 4. Set Requirements
-Mark content as either `required: true` or `required: false`. Optional content is useful for deep dives and supplementary reading but does not block path progression or completion.
 
 ---
 
@@ -60,6 +59,5 @@ Verify these requirements before publishing the path:
 - [ ] Overall and Stage outcomes use action-oriented verbs.
 - [ ] All ATS references and version ranges are valid.
 - [ ] Stages follow a logical pedagogical progression.
-- [ ] Optional and required content flags are correct.
 - [ ] The final assessment points to a valid ATS activity.
 - [ ] `astrona content validate` runs without errors.

@@ -49,19 +49,23 @@ spec:
       
       # Content references the Astrona Training Specifications (ATS) that hold the actual educational material.
       # NEVER put reading material, labs, or exercises directly in this file.
+      # Note: All referenced specs are required to build successfully and must be fully reachable.
       content:
         - ref: ATS010
+          # Git SSH/HTTPS repository URL hosting the spec.
+          repository: "git@github.com:astrona-io/ATS010.git"
+          # Directory path within the repository where the specification files reside.
+          path: "."
           # We use semantic version constraints to ensure upstream updates don't break this path unexpectedly.
           version: ">=1.0.0 <2.0.0"
-          # Is this module strictly required to progress, or just supplementary?
-          required: true
           # Optional: A teacher-facing note explaining why this ATS is placed here.
           rationale: "Provides the foundational reading material for Stage 1."
           
         - ref: ATS012
+          repository: "git@github.com:astrona-io/ATS012.git"
+          path: "modules/advanced"
           version: "^1.2.0"
-          required: false
-          rationale: "Optional deep-dive into advanced configuration."
+          rationale: "Deep-dive into advanced configuration details."
           # Optional: Only include specific activities from the ATS rather than the entire module.
           # If omitted, the entire ATS module is included.
           includeActivities:
@@ -74,14 +78,15 @@ spec:
         - "Deploy a working configuration using the CLI."
       content:
         - ref: ATS015
+          repository: "git@github.com:astrona-io/ATS015.git"
+          path: "labs/lab-1"
           version: "^2.0.0"
-          required: true
           rationale: "Primary lab exercise for this path."
 
   # How Astrona determines if the learner has successfully finished the path.
   completionRequirements:
-    # Must the learner complete all content marked 'required: true'?
-    requireAllMandatoryContent: true
+    # Must the learner complete all referenced stage content in this path?
+    requireAllStageContent: true
     # Is a passing score on the final assessment required?
     requireFinalAssessmentPass: true
 
@@ -89,6 +94,8 @@ spec:
   # This must reference an activity owned by an ATS resource.
   finalAssessment:
     ref: ATS020
+    repository: "git@github.com:astrona-io/ATS020.git"
+    path: "capstones/main"
     version: "^1.0.0"
     # The specific assessment activity within ATS020 to use as the final exam.
     activityId: "capstone-assessment"
